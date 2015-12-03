@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+	<body>
+		<script>
+		function readFile(wordArray) {
+		var fs = require('fs');
+		fs.readFile('kerri.txt', function(err, data) {
+			if(err) throw err;
+			wordArray = data.toString().split("\n");
+			wordArray = data.toString().split(" ");
+			wordArray.sort();
+			for(i in wordArray)	
+				wordArray[i] = wordArray[i].replace(/[^a-z_']/gi, '').toLowerCase();
+			}
+			wordArray.sort();
+			var wordCount = [];
+
+			for(var i = 0; i < wordArray.length; i++) {
+				var item = {word: wordArray[i], count: 1};
+				var nextWord = wordArray[i+1];
+				while(item.word === nextWord) {
+					item.count++;
+					nextWord = wordArray[++i];
+				}
+				
+				wordCount.push(item);	
+
+			}
+
+			for(i in wordCount) {
+				document.write(wordCount[i].word + " " + wordCount[i].count);
+			}
+		});
+			return wordArray;
+		
+
+		var arr = [];
+		readFile(arr);
+		}
+		</script>
+	</body>
+</html>
